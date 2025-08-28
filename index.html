@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Volcanes y Placas Tectónicas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Rajdhani:wght@600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0a0a0a;
+      --bg-2:#121212;
+      --card:#1a1a1a;
+      --txt:#fffef2;
+      --brand:#ff5722;
+      --brand-2:#e64a19;
+      --accent:#ff6f00;
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+      --radius: 18px;
+    }
+
+    *{box-sizing:border-box}
+
+    body {
+      margin: 0;
+      font-family: 'Rajdhani', sans-serif;
+      background: linear-gradient(to bottom, #1b1b1b, #000);
+      color: var(--txt);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      font-size: clamp(16px, 1.1vw + 12px, 18px);
+      line-height: 1.5;
+    }
+
+    /* ====== HEADER ====== */
+    header {
+      position: relative;
+      background: #d84315;
+      padding: clamp(24px, 4vw, 60px) 20px clamp(16px, 2.5vw, 20px);
+      text-align: center;
+      background-image:
+        linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.65)),
+        url("volcan_fondo.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: white;
+      box-shadow: var(--shadow);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      isolation: isolate;
+    }
+
+    header h1 {
+      font-family: 'Luckiest Guy', cursive;
+      font-size: clamp(2rem, 4.5vw, 3.2em);
+      margin: 0;
+      text-shadow: 0 8px 24px rgba(0,0,0,.6);
+      letter-spacing:.5px;
+    }
+
+    header p {
+      font-size: clamp(1rem, 1.8vw, 1.2em);
+      margin-top: 10px;
+      color: #ffdcb5;
+      opacity:.95;
+    }
+
+    /* ====== CONTENEDOR ====== */
+    .contenedor {
+      width: min(1000px, 92vw);
+      margin: clamp(20px, 4vw, 40px) auto;
+      background: #1c1c1c;
+      padding: clamp(16px, 4vw, 30px) clamp(16px, 4.5vw, 40px);
+      border-radius: var(--radius);
+      box-shadow: 0 0 25px #ff5722;
+      border: 1px solid rgba(255,255,255,.06);
+    }
+
+    /* ====== SECCIONES / ACORDEÓN ====== */
+    .seccion {
+      margin-bottom: 18px;
+      border: 2px solid var(--accent);
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--bg-2);
+      box-shadow: 0 6px 20px rgba(0,0,0,.25);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .seccion:focus-within,
+    .seccion:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(0,0,0,.35);
+    }
+
+    .seccion h2 {
+      background: var(--brand);
+      color: white;
+      padding: 16px 20px 16px 56px;
+      font-size: clamp(1.05rem, 2.2vw, 1.4em);
+      margin: 0;
+      cursor: pointer;
+      display:flex;
+      align-items:center;
+      position: relative;
+      transition: background .25s ease;
+      user-select: none;
+      outline: none;
+    }
+
+    /* icono chevron */
+    .seccion h2::before{
+      content:"";
+      position: absolute;
+      left: 18px;
+      width: 22px; height: 22px;
+      border-right: 3px solid #fff;
+      border-bottom: 3px solid #fff;
+      transform: rotate(-45deg);
+      transition: transform .25s ease, opacity .25s ease;
+      opacity:.9;
+    }
+
+    .seccion h2:hover {
+      background: var(--brand-2);
+    }
+
+    /* Panel con animación suave (altura) */
+    .contenido {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 20px;
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+      transition: max-height .4s ease, padding .3s ease;
+    }
+
+    .seccion.open .contenido{
+      padding: 18px 20px 22px;
+      max-height: 1000px; /* suficiente para el contenido */
+    }
+    .seccion.open h2::before{
+      transform: rotate(45deg);
+    }
+
+    .contenido p, .contenido li {
+      font-size: clamp(1rem, 1.3vw, 1.1em);
+      margin: .4em 0;
+    }
+
+    .contenido ul {
+      padding-left: 22px;
+      margin: .2em 0 0;
+    }
+
+    /* ====== BOTÓN SUBIR ====== */
+    .btnUp {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      background: #ff3d00;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50%;
+      font-size: 1.4em;
+      box-shadow: 0 8px 20px rgba(0,0,0,.35), 0 0 10px #ff7043 inset;
+      cursor: pointer;
+      transition: transform .15s ease, background .2s ease, box-shadow .2s ease, opacity .2s ease;
+      opacity:.95;
+    }
+    .btnUp:hover { background: #d84315; transform: translateY(-2px); }
+    .btnUp:active{ transform: translateY(0); }
+
+    /* ====== FOOTER ====== */
+    footer {
+      background: #b71c1c;
+      text-align: center;
+      padding: 20px;
+      font-weight: bold;
+      color: #fff;
+      margin-top: clamp(28px, 5vw, 50px);
+      font-size: 1em;
+      border-top: 1px solid rgba(255,255,255,.1);
+      box-shadow: 0 -10px 30px rgba(0,0,0,.35) inset;
+    }
+
+    /* ====== MOBILE TUNING ====== */
+    @media (max-width: 520px){
+      .contenedor{ box-shadow: 0 0 18px rgba(255, 87, 34, .55); }
+      .seccion{ border-width: 1.5px; }
+      .seccion h2{ padding-left: 52px; }
+      .seccion h2::before{ left:16px; width:20px; height:20px; border-width: 2.5px; }
+      .btnUp{ font-size: 1.25em; padding: 10px 14px; bottom: 14px; right: 14px; }
+    }
+
+    /* Accesibilidad: reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      .seccion,
+      .contenido,
+      .btnUp{ transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🌋 Volcanes y Placas Tectónicas</h1>
+    <p>Trabajo escolar · Ciencias Naturales</p>
+  </header>
+
+  <div class="contenedor">
+
+    <div class="seccion">
+      <h2 tabindex="0">🌋 ¿Por qué se forman los volcanes?</h2>
+      <div class="contenido">
+        <p>Porque las placas tectónicas del Océano Pacífico se mueven constantemente.</p>
+        <p>En muchos sectores, la placa oceánica se hunde bajo la placa continental (subducción).</p>
+        <p>Ese proceso genera magma, que al subir forma volcanes, y al mismo tiempo produce fuertes terremotos.</p>
+      </div>
+    </div>
+
+    <div class="seccion">
+      <h2 tabindex="0">🔥 El Cinturón de Fuego del Pacífico</h2>
+      <div class="contenido">
+        <p>Es una gran franja en forma de anillo que rodea todo el Océano Pacífico.</p>
+        <p>En esa zona ocurren muchísimos terremotos y erupciones volcánicas, debido a que las placas tectónicas se mueven, chocan y se hunden unas bajo otras.</p>
+      </div>
+    </div>
+
+    <div class="seccion">
+      <h2 tabindex="0">🌎 ¿Qué es un volcán?</h2>
+      <div class="contenido">
+        <p>Un volcán es una abertura en la corteza terrestre por donde salen magma, gases y cenizas desde el interior de la Tierra.</p>
+        <p>El magma busca salir por grietas o puntos débiles de la corteza. Cuando llega a la superficie, se acumula y forma una montaña.</p>
+        <p>Las erupciones agregan más capas de lava y ceniza, haciendo crecer el volcán.</p>
+      </div>
+    </div>
+
+    <div class="seccion">
+      <h2 tabindex="0">🧱 Partes de un volcán</h2>
+      <div class="contenido">
+        <ul>
+          <li><strong>Cráter:</strong> el agujero por donde sale el magma.</li>
+          <li><strong>Chimenea:</strong> el tubo que conecta el magma con el cráter.</li>
+          <li><strong>Magma:</strong> roca fundida en el interior.</li>
+          <li><strong>Lava:</strong> cuando el magma sale a la superficie.</li>
+          <li><strong>Cono volcánico:</strong> la montaña formada por lava y ceniza.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="seccion">
+      <h2 tabindex="0">💥 Tipos de erupciones</h2>
+      <div class="contenido">
+        <ul>
+          <li>Tranquilas (lava fluida).</li>
+          <li>Explosivas (mucho gas y ceniza).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="seccion">
+      <h2 tabindex="0">🌱 Influencia en la vida</h2>
+      <div class="contenido">
+        <ul>
+          <li>Crean nuevas tierras.</li>
+          <li>Sus cenizas enriquecen el suelo.</li>
+          <li>Pueden destruir pueblos, cambiar ríos y afectar el aire.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="seccion">
+      <h2 tabindex="0">📍 ¿Dónde hay volcanes?</h2>
+      <div class="contenido">
+        <ul>
+          <li><strong>América:</strong> Chile, Perú, Ecuador, Colombia, México, EE.UU., Canadá.</li>
+          <li><strong>Asia:</strong> Japón, Filipinas, Indonesia, Rusia (Kamchatka).</li>
+          <li><strong>Oceanía:</strong> Nueva Zelanda, Papúa Nueva Guinea.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="seccion">
+      <h2 tabindex="0">⚖️ ¿Son buenos o malos?</h2>
+      <div class="contenido">
+        <ul>
+          <li>Forman nuevas islas y montañas.</li>
+          <li>Enriquecen los suelos.</li>
+          <li>Ayudan a regular la energía interna de la Tierra.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="seccion">
+      <h2 tabindex="0">💬 Reflexión final</h2>
+      <div class="contenido">
+        <p><em>“El Cinturón de Fuego del Pacífico es un recordatorio de que la Tierra está viva, en constante movimiento, y que aunque los volcanes y terremotos son peligrosos, también son parte de la construcción y renovación de nuestro planeta”.</em></p>
+      </div>
+    </div>
+
+    <div class="seccion">
+      <h2 tabindex="0">🧠 Datos curiosos</h2>
+      <div class="contenido">
+        <ul>
+          <li>Hay unos 1.500 volcanes activos en la Tierra.</li>
+          <li>Más de 80 volcanes submarinos crean nuevas islas.</li>
+          <li>El más alto: Nevado Ojos del Salado (6.893 m).</li>
+          <li>Erupción más fuerte: Krakatoa (Indonesia, 1883).</li>
+          <li>País con más volcanes: Indonesia.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <button class="btnUp" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Subir al inicio">↑</button>
+
+  <footer>
+    🌋 Trabajo Escolar — Ciencias Naturales · 2025
+  </footer>
+
+  <script>
+    // Acordeón accesible con animación suave
+    const headers = document.querySelectorAll('.seccion h2');
+    headers.forEach(h => {
+      const toggle = () => {
+        const sec = h.parentElement;
+        sec.classList.toggle('open');
+      };
+      h.addEventListener('click', toggle);
+      h.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggle();
+        }
+      });
+    });
+
+    // Opcional: abrir la primera sección al cargar (sin quitar contenido)
+    // document.querySelector('.seccion')?.classList.add('open');
+  </script>
+
+</body>
+</html>
